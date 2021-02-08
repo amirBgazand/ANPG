@@ -107,7 +107,7 @@ def read_tracks(filename):
 
 
 
-path_id=read_tracks('c:/arshad/final_project/dataset files/all mmb files/recorded_trackfiles/DR_USA_Intersection_MA/vehicle_tracks_000.csv')
+path_id=read_tracks('recorded_trackfiles/DR_USA_Intersection_MA/vehicle_tracks_000.csv')
 
 
 x=[]
@@ -122,6 +122,5 @@ for g in range (1,10):
         plt.xticks(range(950, 1100))  
         plt.yticks(range(950, 1060))  
 
-        plt.show()
     except:
         pass    
