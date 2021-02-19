@@ -11,10 +11,6 @@ class MotionState:
         self.x = None
         self.y = None
 
-
-
-
-
 class Track:
     def __init__(self, id):
         self.track_id = id
