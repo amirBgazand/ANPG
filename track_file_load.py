@@ -112,15 +112,19 @@ path_id=read_tracks('recorded_trackfiles/DR_USA_Intersection_MA/vehicle_tracks_0
 
 x=[]
 y=[]
-for g in range (1,10):
+
+for g in range (30,40):
     try:
+        x=[]
+        y=[]
         for i in range (len(path_id[g])):
             x.append(path_id[g][i][0])
             y.append(path_id[g][i][1])
-
-        plt.plot(x,y)
-        plt.xticks(range(950, 1100))  
-        plt.yticks(range(950, 1060))  
-
+        plt.figure(g)
+        plt.plot(x,y, label=str(g))
+        plt.xlim([950, 1100])
+        plt.ylim([950, 1100]) 
     except:
         pass    
+    
+plt.show()
