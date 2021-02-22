@@ -268,3 +268,10 @@ print(all_path_list[3][11])
     #         pass    
         
     # plt.show()
+
+
+
+def getpath(number):
+
+    number="%03d" %number
+    return glob.glob('recorded_trackfiles\\DR_USA_Intersection_MA\\v*%s.csv' %number)[0]
