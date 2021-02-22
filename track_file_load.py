@@ -1,7 +1,8 @@
 # love you :) :)
 import csv
-
+import glob
 import matplotlib.pyplot as plt 
+
 
 DELTA_TIMESTAMP_MS = 100  # similar throughout the whole dataset
 
@@ -102,144 +103,168 @@ def read_tracks(filename):
 
 
 
-path_id=read_tracks('recorded_trackfiles/DR_USA_Intersection_MA/vehicle_tracks_000.csv')
+
+all_path_list=[]
+for file in glob.glob('recorded_trackfiles/DR_USA_Intersection_MA/v*.csv'):
+
+    each_path_list=[]
+    path_id=read_tracks(file)
+    L=[]
+    D=[]
+    R=[]
+    U=[]
+    L_U=[]
+    L_R=[]
+    L_D=[]
+    D_L=[]
+    D_U=[]
+    D_R=[]
+    R_U=[]
+    R_L=[]
+    R_D=[]
+    U_D=[]
+    U_R=[]
+    U_L=[]
+    nothing=[]
+
+
+    for id in list(path_id.keys()) :
+        for item in path_id[id] :
+            if 992<=item[0]<=997 and 997<=item[1]<=1006 :
+                L.append(id)
+                break
+            if 1026<=item[0]<=1037 and 980<=item[1]<=988 :
+                D.append(id)
+                break
+            if 1038<=item[0]<=1044 and 1006<=item[1]<=1012 :
+                R.append(id)
+                break
+            if 1004<=item[0]<=1021 and 1011<=item[1]<=1026 :
+                U.append(id)
+                break
+            else :
+                continue
+        else :
+            nothing.append(id)
+
+
+    for id in L :
+        for item in path_id[id]:
+            if 1021<=item[0]<=1035 and 1012<=item[1]<=1021 :
+                L_U.append(id)
+                break
+            if 1043<=item[0]<=1050 and 997<=item[1]<=1006 :
+                L_R.append(id)
+                break
+            if 1005<=item[0]<=1016 and 980<=item[1]<=989 :
+                L_D.append(id)
+                break
+
+    for id in D :
+        for item in path_id[id]:
+            if 1021<=item[0]<=1035 and 1012<=item[1]<=1021 :
+                D_U.append(id)
+                break
+            if 1043<=item[0]<=1050 and 997<=item[1]<=1006 :
+                D_R.append(id)
+                break
+            if 988<=item[0]<=1000 and 1006<=item[1]<=1010 :
+                D_L.append(id)
+                break
+
+    for id in R :
+        for item in path_id[id]:
+            if 1021<=item[0]<=1035 and 1012<=item[1]<=1021 :
+                R_U.append(id)
+                break
+            if 1005<=item[0]<=1016 and 980<=item[1]<=989 :
+                R_D.append(id)
+                break
+            if 988<=item[0]<=1000 and 1006<=item[1]<=1010 :
+                R_L.append(id)
+                break
+
+    for id in U :
+        for item in path_id[id]:
+            if 1005<=item[0]<=1016 and 978<=item[1]<=988 :
+                U_D.append(id)
+                break
+            if 1043<=item[0]<=1050 and 997<=item[1]<=1006 :
+                U_R.append(id)
+                break
+            if 998<=item[0]<=1000 and 1006<=item[1]<=1010 : 
+                U_L.append(id)
+
+    each_path_list.append(U_D)
+    each_path_list.append(U_R)
+    each_path_list.append(U_L)
+    each_path_list.append(L_U)
+    each_path_list.append(L_R)
+    each_path_list.append(L_D)
+    each_path_list.append(D_L)
+    each_path_list.append(D_U)
+    each_path_list.append(D_R)
+    each_path_list.append(R_U)
+    each_path_list.append(R_D)
+    each_path_list.append(R_L)
+    # each_path_list.append(nothing)
+
+    all_path_list.append(each_path_list)
+
+
+
+
+# print(all_path_list[1])
+print(all_path_list[3][11])
+# print(U_R)
+# print(U_L)
+# print(L_U)
+# print(L_R)
+# print(L_D)
+# print(D_L)
+# print(D_U)
+# print(D_R)
+# print(R_D)
+# print(R_L)
+# print(R_U)
+
 
 
 # x=[]
 # y=[]
-
-# for g in range (30,32):
-#     try:
-#         x=[]
-#         y=[]
-#         for i in range (len(path_id[g])):
-#             x.append(path_id[g][i][0])
-#             y.append(path_id[g][i][1])
-#         plt.figure(g)
-#         plt.plot(x,y, label=str(g))
-#         plt.xlim([950, 1100])
-#         plt.ylim([950, 1100]) 
-#     except:
-#         pass    
-    
+# plt.figure()
+# for id in all_path_list[1][0] :
+#     for i in range(len(path_id[id])):
+#         x.append(path_id[id][i][0])
+#         y.append(path_id[id][i][1])
+#     plt.plot(x,y)
+#     plt.xlim([950, 1100])
+#     plt.ylim([950, 1100])
 # plt.show()
 
-L=[]
-D=[]
-R=[]
-U=[]
-L_U=[]
-L_R=[]
-L_D=[]
-D_L=[]
-D_U=[]
-D_R=[]
-R_U=[]
-R_L=[]
-R_D=[]
-U_D=[]
-U_R=[]
-U_L=[]
-nothing=[]
-
-
-for id in list(path_id.keys()) :
-    for item in path_id[id] :
-        if 992<=item[0]<=997 and 997<=item[1]<=1006 :
-            L.append(id)
-            break
-        if 1026<=item[0]<=1037 and 980<=item[1]<=988 :
-            D.append(id)
-            break
-        if 1038<=item[0]<=1044 and 1006<=item[1]<=1012 :
-            R.append(id)
-            break
-        if 1004<=item[0]<=1021 and 1011<=item[1]<=1026 :
-            U.append(id)
-            break
-        else :
-            continue
-    else :
-        nothing.append(id)
-
-
-for id in L :
-    for item in path_id[id]:
-        if 1021<=item[0]<=1035 and 1012<=item[1]<=1021 :
-            L_U.append(id)
-            break
-        if 1043<=item[0]<=1050 and 997<=item[1]<=1006 :
-            L_R.append(id)
-            break
-        if 1005<=item[0]<=1016 and 980<=item[1]<=989 :
-            L_D.append(id)
-            break
-
-for id in D :
-    for item in path_id[id]:
-        if 1021<=item[0]<=1035 and 1012<=item[1]<=1021 :
-            D_U.append(id)
-            break
-        if 1043<=item[0]<=1050 and 997<=item[1]<=1006 :
-            D_R.append(id)
-            break
-        if 988<=item[0]<=1000 and 1006<=item[1]<=1010 :
-            D_L.append(id)
-            break
-
-for id in R :
-    for item in path_id[id]:
-        if 1021<=item[0]<=1035 and 1012<=item[1]<=1021 :
-            R_U.append(id)
-            break
-        if 1005<=item[0]<=1016 and 980<=item[1]<=989 :
-            R_D.append(id)
-            break
-        if 988<=item[0]<=1000 and 1006<=item[1]<=1010 :
-            R_L.append(id)
-            break
-
-for id in U :
-    for item in path_id[id]:
-        if 1005<=item[0]<=1016 and 978<=item[1]<=988 :
-            U_D.append(id)
-            break
-        if 1043<=item[0]<=1050 and 997<=item[1]<=1006 :
-            U_R.append(id)
-            break
-        if 998<=item[0]<=1000 and 1006<=item[1]<=1010 : 
-            U_L.append(id)
-
-print(U_D)
-print(U_R)
-print(U_L)
-print(L_U)
-print(L_R)
-print(L_D)
-print(D_L)
-print(D_U)
-print(D_R)
-print(R_D)
-print(nothing)
-
-
-
-x=[]
-y=[]
-plt.figure()
-for id in U_D :
-    for i in range(len(path_id[id])):
-        x.append(path_id[id][i][0])
-        y.append(path_id[id][i][1])
-    plt.plot(x,y)
-    plt.xlim([950, 1100])
-    plt.ylim([950, 1100])
-plt.show()
 
 
 
 
-# import glob
 
-# for file in glob.glob('D:\\1-UNIVERSITY\\2-Niusha_Project\\Intersection\\ANPG\\recorded_trackfiles\\DR_USA_Intersection_MA\\v*.csv'):
-#     print(file)
+
+
+
+    # x=[]
+    # y=[]
+
+    # for g in range (30,32):
+    #     try:
+    #         x=[]
+    #         y=[]
+    #         for i in range (len(path_id[g])):
+    #             x.append(path_id[g][i][0])
+    #             y.append(path_id[g][i][1])
+    #         plt.figure(g)
+    #         plt.plot(x,y, label=str(g))
+    #         plt.xlim([950, 1100])
+    #         plt.ylim([950, 1100]) 
+    #     except:
+    #         pass    
+        
+    # plt.show()
