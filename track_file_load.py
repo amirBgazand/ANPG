@@ -4,7 +4,13 @@ import glob
 import matplotlib.pyplot as plt 
 
 
-DELTA_TIMESTAMP_MS = 100  # similar throughout the whole dataset
+# DELTA_TIMESTAMP_MS = 100  # similar throughout the whole dataset
+
+
+def get_directory(number):
+
+    number="%03d" %number
+    return glob.glob('recorded_trackfiles\\DR_USA_Intersection_MA\\v*%s.csv' %number)[0]
 
 
 class MotionState:
@@ -152,6 +158,11 @@ for file in glob.glob('recorded_trackfiles/DR_USA_Intersection_MA/v*.csv'):
         for item in path_id[id]:
             if 1021<=item[0]<=1035 and 1012<=item[1]<=1021 :
                 L_U.append(id)
+                for element in path_id[id] :
+                    if 1006<=element[0]<=1007 and 1017<=element[1]<=1018 :
+                        print(file,id)
+                        del L_U[-1]
+                        break
                 break
             if 1043<=item[0]<=1050 and 997<=item[1]<=1006 :
                 L_R.append(id)
@@ -167,6 +178,11 @@ for file in glob.glob('recorded_trackfiles/DR_USA_Intersection_MA/v*.csv'):
                 break
             if 1043<=item[0]<=1050 and 997<=item[1]<=1006 :
                 D_R.append(id)
+                for element in path_id[id]:
+                    if element[0]<=1028 :
+                        print(file,id)
+                        del D_R[-1]
+                        break
                 break
             if 988<=item[0]<=1000 and 1006<=item[1]<=1010 :
                 D_L.append(id)
@@ -176,6 +192,11 @@ for file in glob.glob('recorded_trackfiles/DR_USA_Intersection_MA/v*.csv'):
         for item in path_id[id]:
             if 1021<=item[0]<=1035 and 1012<=item[1]<=1021 :
                 R_U.append(id)
+                for element in path_id[id] :
+                    if element[0]<=1014 :
+                        print(file,id)
+                        del R_U[-1]
+                        break
                 break
             if 1005<=item[0]<=1016 and 980<=item[1]<=989 :
                 R_D.append(id)
@@ -191,9 +212,15 @@ for file in glob.glob('recorded_trackfiles/DR_USA_Intersection_MA/v*.csv'):
                 break
             if 1043<=item[0]<=1050 and 997<=item[1]<=1006 :
                 U_R.append(id)
+                for element in path_id[id] :
+                    if element[0]<=1000 :
+                        print(file,id)
+                        del U_R[-1]
+                        break
                 break
             if 998<=item[0]<=1000 and 1006<=item[1]<=1010 : 
                 U_L.append(id)
+                
 
     each_path_list.append(U_D)
     each_path_list.append(U_R)
@@ -215,7 +242,7 @@ for file in glob.glob('recorded_trackfiles/DR_USA_Intersection_MA/v*.csv'):
 
 
 # print(all_path_list[1])
-print(all_path_list[3][11])
+# print(all_path_list[14][1])
 # print(U_R)
 # print(U_L)
 # print(L_U)
@@ -230,17 +257,26 @@ print(all_path_list[3][11])
 
 
 
-# x=[]
-# y=[]
-# plt.figure()
-# for id in all_path_list[1][0] :
-#     for i in range(len(path_id[id])):
-#         x.append(path_id[id][i][0])
-#         y.append(path_id[id][i][1])
-#     plt.plot(x,y)
-#     plt.xlim([950, 1100])
-#     plt.ylim([950, 1100])
-# plt.show()
+
+
+for i in range(12):
+    plt.figure(i)
+    for j in range(len(all_path_list)) :
+        x=[]
+        y=[]
+        path_id=read_tracks(get_directory(j))
+        for id in all_path_list[j][i] :
+            for n in range(len(path_id[id])) :
+                x.append(path_id[id][n][0])
+                y.append(path_id[id][n][1])
+            plt.scatter(x,y,marker='o')
+            plt.xlim([950, 1100])
+            plt.ylim([950, 1100])
+
+plt.show()
+            
+
+    
 
 
 
@@ -270,8 +306,3 @@ print(all_path_list[3][11])
     # plt.show()
 
 
-
-def getpath(number):
-
-    number="%03d" %number
-    return glob.glob('recorded_trackfiles\\DR_USA_Intersection_MA\\v*%s.csv' %number)[0]
