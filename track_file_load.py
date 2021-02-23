@@ -2,6 +2,7 @@
 import csv
 import glob
 import matplotlib.pyplot as plt 
+import pickle
 
 
 # DELTA_TIMESTAMP_MS = 100  # similar throughout the whole dataset
@@ -239,7 +240,8 @@ for file in glob.glob('recorded_trackfiles/DR_USA_Intersection_MA/v*.csv'):
     all_path_list.append(each_path_list)
 
 
-
+with open('all_path_list.pkl','wb') as file :
+    pickle.dump(all_path_list,file)
 
 # print(all_path_list[1])
 # print(all_path_list[14][1])
@@ -259,21 +261,21 @@ for file in glob.glob('recorded_trackfiles/DR_USA_Intersection_MA/v*.csv'):
 
 
 
-for i in range(12):
-    plt.figure(i)
-    for j in range(len(all_path_list)) :
-        x=[]
-        y=[]
-        path_id=read_tracks(get_directory(j))
-        for id in all_path_list[j][i] :
-            for n in range(len(path_id[id])) :
-                x.append(path_id[id][n][0])
-                y.append(path_id[id][n][1])
-            plt.scatter(x,y,marker='o')
-            plt.xlim([950, 1100])
-            plt.ylim([950, 1100])
+# for i in range(12):
+#     plt.figure(i)
+#     for j in range(len(all_path_list)) :
+#         x=[]
+#         y=[]
+#         path_id=read_tracks(get_directory(j))
+#         for id in all_path_list[j][i] :
+#             for n in range(len(path_id[id])) :
+#                 x.append(path_id[id][n][0])
+#                 y.append(path_id[id][n][1])
+#             plt.scatter(x,y,marker='o')
+#             plt.xlim([950, 1100])
+#             plt.ylim([950, 1100])
 
-plt.show()
+# plt.show()
             
 
     
